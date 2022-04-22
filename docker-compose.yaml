@@ -20,7 +20,7 @@ services:
     build: ./app
     container_name: economy_app_container
     ports:
-      - "8001:8000"
+      - "8010:8000"
     expose:
       - 8000
     env_file:
@@ -42,7 +42,7 @@ services:
     build: ./nginx
     container_name: economy_nginx_container
     ports:
-      - "81:80"
+      - "82:80"
     volumes:
       - static:/etc/nginx/conf.d/staticfiles/
       - media:/etc/nginx/conf.d/mediafiles/
