@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ quiz.title }}</title>
+</head>
+<body>
+<form action="/accept-quiz" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="quiz-id" value="{{ quiz.id }}" >
+    {% include 'quizes/student-user.html' %}
+    {% for question in quiz.questions.all %}
+        {% if question.type == 'GZ' %}
+            {% include 'quizes/gameshow-quiz.html' %}
+        {% elif question.type == 'AN'%}
+            {% include 'quizes/anagram.html' %}
+        {% else %}
+            {% include 'quizes/missing-word.html' %}
+        {% endif %}
+    {% endfor %}
+    <input type="submit" value="Завершить">
+</form>
+</body>
+</html>

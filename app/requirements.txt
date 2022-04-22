@@ -1,0 +1,10 @@
+django
+django-admin
+psycopg2
+drf_yasg
+whitenoise
+django-environ
+django-cors-headers
+Pillow
+bs4
+requests
