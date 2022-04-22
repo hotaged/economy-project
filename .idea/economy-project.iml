@@ -8,6 +8,7 @@
       <excludeFolder url="file://$MODULE_DIR$/app/media" />
       <excludeFolder url="file://$MODULE_DIR$/app/static" />
       <excludeFolder url="file://$MODULE_DIR$/app/quizes/migrations" />
+      <excludeFolder url="file://$MODULE_DIR$/postgres/pgdata" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
