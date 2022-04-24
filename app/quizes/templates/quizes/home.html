@@ -3,15 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Тесты по экономике</title>
+    <link rel="stylesheet" href="/static/quizes/css/quiz.css" type="text/css">
 </head>
 <body>
-<table>
-    <th colspan="2">Название</th>
+
+<form action="" class="form">
+    <div class="field">
+        <label class="label">Список тестов</label>
+    </div>
+
     {% for quiz in quizes %}
-    <tr>
-        <td><a href="/quiz/{{ quiz.uuid }}">{{ quiz.title }}</a></td>
-    </tr>
+        <p class="field half">
+            <input class='text-input' name='quiz-{{ quiz.id }}' required type='text' value="{{ quiz.title }}" readonly>
+        </p>
+        <p class="field half">
+            <input class='button' type='button' value='НАЧАТЬ' onclick="location.href='/quiz/{{ quiz.uuid }}'">
+        </p>
     {% endfor %}
-</table>
+</form>
+
 </body>
 </html>

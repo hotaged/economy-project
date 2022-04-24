@@ -2,23 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ quiz.title }}</title>
+    <title>Тесты по экономике</title>
+    <link rel="stylesheet" href="/static/quizes/css/quiz.css" type="text/css">
 </head>
 <body>
-<form action="/accept-quiz" method="post">
+<form action='/accept-quiz' class='form' method="post">
     {% csrf_token %}
-    <input type="hidden" name="quiz-id" value="{{ quiz.id }}" >
-    {% include 'quizes/student-user.html' %}
+    <input type="hidden" id="quiz-id" value="{{ quiz.id }}" name="quiz-id">
+
+    <p class='field half'>
+        <label class="label">Тест по экономике: </label>
+    </p>
+
+    <p class='field half'>
+        <label class="label">{{ quiz.title }}</label>
+    </p>
+
+    {# Who fill the form  #}
+    <p class='field required'>
+        <label class='label required' for='name'>Ф.И.О</label>
+        <input class='text-input' id='name' name='student-name' required type='text' placeholder="Как тебя зовут?">
+    </p>
+    <p class='field required half'>
+        <label class='label' for='email'>E-mail</label>
+        <input class='text-input' id='email' name='student-email' required type='email' placeholder="global@example.com">
+    </p>
+    <p class='field required half'>
+        <label class='label' for='phone'>Группа</label>
+        <input class='text-input' id='phone' name='student-group' type='text' required placeholder="Из какой группы?">
+    </p>
+    <div class='field'></div>
+    {# Questions form #}
     {% for question in quiz.questions.all %}
-        {% if question.type == 'GZ' %}
-            {% include 'quizes/gameshow-quiz.html' %}
-        {% elif question.type == 'AN'%}
-            {% include 'quizes/anagram.html' %}
-        {% else %}
-            {% include 'quizes/missing-word.html' %}
-        {% endif %}
+        <div class='field'>
+            {% if question.type == 'AN' %}
+                <label class="label"
+                       for="anagram-{{ question.id }}"> {{ forloop.counter }} - {{ question.question }}<br>{{ question.anagram_answer }}</label>
+                <textarea class='textarea' cols='50' id='anagram-{{ question.id }}' name='text-answer-{{ question.id }}'
+                          rows='4'></textarea>
+            {% elif question.type == 'GZ' %}
+                <label class='label'>{{ forloop.counter }} - {{ question.question }}</label>
+                <ul class='options'>
+                    {% for answer in question.answers.all %}
+                        <li class='option'>
+                            <input class='option-input' id='answer-{{ answer.id }}' name='answer-{{ question.id }}'
+                                   type='radio' value='{{ answer.id }}'>
+                            <label class='option-label' for='answer-{{ answer.id }}'>{{ answer.text }}</label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
     {% endfor %}
-    <input type="submit" value="Завершить">
+    <p class='field half'>
+    </p>
+    <p class='field half'>
+        <input class='button' type='submit' value='ЗАВЕРШИТЬ'>
+    </p>
 </form>
+
 </body>
+<script src="/static/quizes/js/quiz.js"></script>
 </html>

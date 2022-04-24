@@ -3,54 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Результат</title>
+    <link rel="stylesheet" href="/static/quizes/css/quiz.css" type="text/css">
 </head>
-<style>
-    table {
-        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif, serif;
-        text-align: center;
-        border-collapse: collapse;
-        border-spacing: 5px;
-        background: #E1E3E0;
-        border-radius: 20px;
-    }
 
-    th {
-        font-size: 22px;
-        font-weight: 300;
-        padding: 12px 10px;
-        border-bottom: 2px solid #F56433;
-        color: #F56433;
-    }
-
-    tbody tr:nth-child(2) {
-        border-bottom: 2px solid #F56433;
-    }
-
-    td {
-        padding: 10px;
-        color: #8D8173;
-    }
-</style>
 <body>
-<table>
-    <tr>
-        <th colspan="2">Результат прохождения теста "{{ result.quiz.title }}"</th>
-    </tr>
-    <tr>
-        <td>Результат</td>
-        <td>{{ result.result }}</td>
-    </tr>
-    <tr>
-        <td>Ф.И.О</td>
-        <td>{{ result.student }}</td>
-    </tr>
-    <tr>
-        <td>Группа</td>
-        <td>{{ result.group }}</td>
-    </tr>
-    <tr>
-        <td colspan="2"><a href="/home/">В начало</a></td>
-    </tr>
-</table>
+
+<form class="form" action="">
+    <p class='field'>
+        <label class="label">Результат прохождения теста "{{ result.quiz.title }}": </label>
+    </p>
+    <p class="field half">
+        <label class="label"> Результат: </label>
+    </p>
+    <p class="field half">
+        <input class='text-input' name='quiz-{{ result.quiz.id }}' required type='text' value="{{ result.result }}" readonly>
+    </p>
+    <p class="field half">
+        <label class="label"> Ф.И.О: </label>
+    </p>
+    <p class="field half">
+        <input class='text-input' name='quiz-{{ result.quiz.id }}' required type='text' value="{{ result.student }}" readonly>
+    </p>
+    <p class="field half">
+        <label class="label"> Группа: </label>
+    </p>
+    <p class="field half">
+        <input class='text-input' name='quiz-{{ result.quiz.id }}' required type='text' value="{{ result.group }}" readonly>
+    </p>
+    <p class="field">
+        <label class="button" id="return" onclick="location.href='/'"> На главную </label>
+    </p>
+</form>
+
 </body>
 </html>

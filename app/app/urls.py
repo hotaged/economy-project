@@ -30,5 +30,8 @@ urlpatterns = [
     path('quiz/<str:uuid>', views.quiz),
     path('accept-quiz', views.accept_quiz),
 
-    path('', RedirectView.as_view(url='home/'))
+    path('', RedirectView.as_view(url='home/')),
+    path('full/home', views.home_template),
+    path('full/rusult', views.result_template),
+    path('full/quiz', views.quiz_template)
 ]

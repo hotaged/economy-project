@@ -1,7 +1,0 @@
-<label for="question">{{ question.question }}</label><br>
-{% for answer in question.shuffled_answers %}
-    <label for="answer-{{ answer.id }}">
-        <input type="radio" name="answer-{{ question.id }}" id="answer-{{ answer.id }}" value="{{answer.id }}">
-        {{ answer.text }}
-    </label><br>
-{% endfor %}

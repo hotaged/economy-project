@@ -40,6 +40,22 @@ class QuestionModel(models.Model):
         random.shuffle(answers)
         return answers
 
+    def anagram_answer(self):
+        import random
+        answer = self.right_answer.text.__str__()
+
+        length = len(answer)
+        sign = random.choice(answer)
+        resp = []
+
+        for i in range(length):
+            if answer[i] == sign:
+                resp.append(sign)
+            else:
+                resp.append('_')
+
+        return ' '.join(resp)
+
 
 class AnswersModel(models.Model):
     text = models.CharField(max_length=512, verbose_name='Текст ответа')

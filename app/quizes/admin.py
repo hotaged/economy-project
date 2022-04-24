@@ -4,7 +4,7 @@ from quizes import models
 
 
 class QuizModelAdmin(admin.ModelAdmin):
-    fields = ('title', 'only_once', 'uuid')
+    fields = ('title', 'uuid')
 
     def get_readonly_fields(self, request, obj=None):
         return 'uuid',
@@ -19,8 +19,8 @@ class QuestionModelAdmin(admin.ModelAdmin):
 
 
 class AnswerModelAdmin(admin.ModelAdmin):
-    list_display = ('text', 'get_question')
-    list_filter = ('question__quiz__title', 'question__type')
+    list_display = ('text', 'get_question', 'id')
+    list_filter = ('id', 'question__quiz__title', 'question__type', 'question__question')
     
     def get_question(self, obj):
         return obj.question.question.__str__()[0:50]
