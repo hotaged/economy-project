@@ -13,6 +13,13 @@ class QuizModel(models.Model):
     def __str__(self):
         return self.title
 
+    def shuffled_questions(self):
+        import random
+
+        questions = list(self.questions.all())
+        random.shuffle(questions)
+        return questions
+
 
 class QuestionModel(models.Model):
     TYPES = (

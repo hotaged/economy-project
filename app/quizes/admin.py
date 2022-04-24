@@ -20,7 +20,7 @@ class QuestionModelAdmin(admin.ModelAdmin):
 
 class AnswerModelAdmin(admin.ModelAdmin):
     list_display = ('text', 'get_question', 'id')
-    list_filter = ('id', 'question__quiz__title', 'question__type', 'question__question')
+    list_filter = ('question__quiz__title', 'question__type', 'question__question')
     
     def get_question(self, obj):
         return obj.question.question.__str__()[0:50]

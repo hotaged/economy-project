@@ -25,7 +25,8 @@
     </p>
     <p class='field required half'>
         <label class='label' for='email'>E-mail</label>
-        <input class='text-input' id='email' name='student-email' required type='email' placeholder="global@example.com">
+        <input class='text-input' id='email' name='student-email' required type='email'
+               placeholder="global@example.com">
     </p>
     <p class='field required half'>
         <label class='label' for='phone'>Группа</label>
@@ -33,17 +34,20 @@
     </p>
     <div class='field'></div>
     {# Questions form #}
-    {% for question in quiz.questions.all %}
+    {% for question in quiz.shuffled_questions %}
         <div class='field'>
             {% if question.type == 'AN' %}
                 <label class="label"
-                       for="anagram-{{ question.id }}"> {{ forloop.counter }} - {{ question.question }}<br>{{ question.anagram_answer }}</label>
+                       for="anagram-{{ question.id }}"> {{ forloop.counter }} - {{ question.question }}<br></label>
                 <textarea class='textarea' cols='50' id='anagram-{{ question.id }}' name='text-answer-{{ question.id }}'
                           rows='4'></textarea>
             {% elif question.type == 'GZ' %}
                 <label class='label'>{{ forloop.counter }} - {{ question.question }}</label>
+                {% if question.image %}
+                    <img src="/media/{{ question.image }}" alt="Загрузка изображения...">
+                {% endif %}
                 <ul class='options'>
-                    {% for answer in question.answers.all %}
+                    {% for answer in question.shuffled_answers %}
                         <li class='option'>
                             <input class='option-input' id='answer-{{ answer.id }}' name='answer-{{ question.id }}'
                                    type='radio' value='{{ answer.id }}'>

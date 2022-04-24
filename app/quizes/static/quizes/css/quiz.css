@@ -6,6 +6,11 @@ body {
   background-color: #111111;
   font-family: "Titillium Web", sans-serif;
 }
+
+img {
+  margin-bottom: 1em;
+}
+
 @media screen and (min-width: 40em) {
   body {
     font-size: 1.25em;
