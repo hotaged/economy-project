@@ -42,7 +42,8 @@ services:
     build: ./nginx
     container_name: economy_nginx_container
     ports:
-      - "82:80"
+      - "80:80"
+      - "443:443"
     volumes:
       - static:/etc/nginx/conf.d/staticfiles/
       - media:/etc/nginx/conf.d/mediafiles/
