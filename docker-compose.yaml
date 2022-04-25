@@ -64,7 +64,7 @@ services:
     volumes:
       - letsencrypt:/etc/letsencrypt/
       - website:/var/www/html/
-    command: certonly --webroot --webroot-path=/var/www/html --email dmitriiezhow@gmail.com --agree-tos --no-eff-mail -d test.ezhov.site
+    command: certonly --webroot --webroot-path=/var/www/html --email ${EMAIL_HOST_USER} --agree-tos --no-eff-mail -d ${DOMAIN}
 
 volumes:
   static:
