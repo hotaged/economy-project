@@ -34,6 +34,7 @@ services:
       - static:/usr/src/economy/static
       - media:/usr/src/economy/media
       - ./app:/usr/src/economy
+      - certfile:/var/www/html/
 
     depends_on:
       - database
@@ -49,6 +50,7 @@ services:
       - media:/etc/nginx/conf.d/mediafiles/
       - ./nginx/:/etc/nginx/conf.d/
       - letsencrypt:/etc/letsencrypt/
+      - certfile:/var/www/html/
     networks:
       - shared
     depends_on:
@@ -62,13 +64,14 @@ services:
     container_name: economy_certbot_container
     volumes:
       - letsencrypt:/etc/letsencrypt/
-      - ./app:/var/www/html/
+      - certfile:/var/www/html/
     command: certonly --webroot --webroot-path=/var/www/html --email ${EMAIL_HOST_USER} --agree-tos --no-eff-email -d ${DOMAIN}
 
 volumes:
   static:
   media:
   letsencrypt:
+  certfile:
 
 networks:
   shared:
