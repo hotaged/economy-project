@@ -40,11 +40,15 @@ def accept_quiz(request):
     question_amount = len(quiz.questions.all())
     right_answers_amount = 0
 
+    answers = []
+
     for field in request.POST:
         if field.startswith('answer'):
 
             question_id = int(field.split('-')[-1])
             question = quiz.questions.get(id=question_id)
+
+            answers.append({'question': question, 'right': question.right_answer.id, 'answered': int(request.POST.get(field))})
 
             if question.right_answer.id == int(request.POST.get(field)):
                 right_answers_amount += 1
@@ -55,6 +59,8 @@ def accept_quiz(request):
             question = quiz.questions.get(id=question_id)
             answer = request.POST.get(field).strip().lower()
             right_answer = question.right_answer.text.strip().lower()
+
+            answers.append({'question': question, 'right': right_answer, 'answered': answer})
 
             if answer == right_answer:
                 right_answers_amount += 1
@@ -67,4 +73,4 @@ def accept_quiz(request):
         result=f'{right_answers_amount} из {question_amount}'
     )
 
-    return render(request, 'quizes/result.html', {'result': result})
+    return render(request, 'quizes/result.html', {'result': result, 'answers': answers})

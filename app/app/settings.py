@@ -17,7 +17,7 @@ from pathlib import Path
 root = environ.Path(__file__) - 3
 env = environ.Env()
 
-environ.Env.read_env(root('.env'))
+environ.Env.read_env(root('portable.env'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

@@ -16,20 +16,73 @@
         <label class="label"> Результат: </label>
     </p>
     <p class="field half">
-        <input class='text-input' name='quiz-{{ result.quiz.id }}' required type='text' value="{{ result.result }}" readonly>
+        <input class='text-input' name='quiz-{{ result.quiz.id }}' required type='text' value="{{ result.result }}"
+               readonly>
     </p>
     <p class="field half">
         <label class="label"> Ф.И.О: </label>
     </p>
     <p class="field half">
-        <input class='text-input' name='quiz-{{ result.quiz.id }}' required type='text' value="{{ result.student }}" readonly>
+        <input class='text-input' name='quiz-{{ result.quiz.id }}' required type='text' value="{{ result.student }}"
+               readonly>
     </p>
     <p class="field half">
         <label class="label"> Группа: </label>
     </p>
     <p class="field half">
-        <input class='text-input' name='quiz-{{ result.quiz.id }}' required type='text' value="{{ result.group }}" readonly>
+        <input class='text-input' name='quiz-{{ result.quiz.id }}' required type='text' value="{{ result.group }}"
+               readonly>
     </p>
+    <div class="field"></div>
+    <p class="field">
+        <label class="label"> Ответы: </label>
+    </p>
+    {% for answer in answers %}
+        <div class="field">
+            {% if answer.question.type == 'AN' %}
+                <label class="label"
+                       for="anagram-{{ answer.question.id }}"> {{ forloop.counter }}
+                    - {{ answer.question.question }}<br></label>
+                {% if answer.answered == answer.right %}
+                <textarea class='textarea' cols='50' id='anagram-{{ answer.question.id }}'
+                          name='text-answer-{{ answer.question.id }}'
+                          rows='4' readonly style="color: lawngreen">{{ answer.answered }}</textarea>
+                {% else %}
+                <textarea class='textarea' cols='50' id='anagram-{{ answer.question.id }}'
+                          name='text-answer-{{ answer.question.id }}'
+                          rows='4' readonly style="color: red">Ваш ответ: {{ answer.answered }}
+Верный ответ: {{ answer.right }}</textarea>
+                {% endif %}
+            {% elif answer.question.type == 'GZ' %}
+                <label class='label'>{{ forloop.counter }} - {{ answer.question.question }}</label>
+                {% if answer.question.image %}
+                    <img src="/media/{{ answer.question.image }}" alt="Загрузка изображения...">
+                {% endif %}
+                <ul class='options'>
+                    {% for answer_inner in answer.question.shuffled_answers %}
+                        {% if answer.right == answer_inner.id %}
+                            <li class='option'>
+                                <input class='option-input' id='answer-{{ answer_inner.id }}'
+                                       name='answer-{{ answer_inner.question.id }}'
+                                       type='radio' value='{{ answer_inner.id }}' disabled checked>
+                                <label class='option-label'
+                                       for='answer-{{ answer_inner.id }}' style="{% if answer.answered == answer_inner.id %} background: lawngreen {% endif %}">{{ answer_inner.text }}</label>
+                            </li>
+                        {% else %}
+                            <li class='option'>
+                                <input class='option-input' id='answer-{{ answer_inner.id }}'
+                                       name='answer-{{ answer_inner.question.id }}'
+                                       type='radio' value='{{ answer_inner.id }}' disabled
+                                >
+                                <label class='option-label'
+                                       for='answer-{{ answer_inner.id }}' style="{% if answer.answered == answer_inner.id %} background: red; color: white {% endif %}">{{ answer_inner.text }}</label>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endfor %}
     <p class="field">
         <label class="button" id="return" onclick="location.href='/'"> На главную </label>
     </p>

@@ -216,7 +216,3 @@ body {
   will-change: top, left, width;
   transform-origin: 0 0;
 }
-
-.right-answer {
-  color: lawngreen !important;
-}
