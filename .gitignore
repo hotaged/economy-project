@@ -6,6 +6,7 @@ postgres/pgdata
 .idea
 # C extensions
 *.so
+*.env
 
 # Distribution / packaging
 .Python
