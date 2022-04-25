@@ -63,7 +63,7 @@ services:
     volumes:
       - letsencrypt:/etc/letsencrypt/
       - ./app:/var/www/html/
-    command: certonly --webroot --webroot-path=/var/www/html --email ${EMAIL_HOST_USER} --agree-tos --no-eff-mail -d ${DOMAIN}
+    command: certonly --webroot --webroot-path=/var/www/html --email ${EMAIL_HOST_USER} --agree-tos --no-eff-email -d ${DOMAIN}
 
 volumes:
   static:
