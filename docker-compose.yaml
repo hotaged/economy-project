@@ -1,4 +1,4 @@
-version: '2.2'
+version: '3.3'
 
 services:
   database:
@@ -34,6 +34,7 @@ services:
       - static:/usr/src/economy/static
       - media:/usr/src/economy/media
       - ./app:/usr/src/economy
+      - website:/usr/src/economy
 
     depends_on:
       - database
@@ -48,15 +49,28 @@ services:
       - static:/etc/nginx/conf.d/staticfiles/
       - media:/etc/nginx/conf.d/mediafiles/
       - ./nginx/:/etc/nginx/conf.d/
+      - letsencrypt:/etc/letsencrypt/
     networks:
       - shared
     depends_on:
       - database
       - app
 
+  sertbot:
+    image: certbot/certbot
+    depends_on:
+      - nginx
+    container_name: economy_certbot_container
+    volumes:
+      - letsencrypt:/etc/letsencrypt/
+      - website:/var/www/html/
+    command: certonly --webroot --webroot-path=/var/www/html --email dmitriiezhow@gmail.com --agree-tos --no-eff-mail -d test.ezhov.site
+
 volumes:
   static:
   media:
+  letsencrypt:
+  website:
 
 networks:
   shared:
