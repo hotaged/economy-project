@@ -40,7 +40,7 @@
                 <label class="label"
                        for="anagram-{{ question.id }}"> {{ forloop.counter }} - {{ question.question }}<br></label>
                 <textarea class='textarea' cols='50' id='anagram-{{ question.id }}' name='text-answer-{{ question.id }}'
-                          rows='4'></textarea>
+                          rows='4' required></textarea>
             {% elif question.type == 'GZ' %}
                 <label class='label'>{{ forloop.counter }} - {{ question.question }}</label>
                 {% if question.image %}
@@ -50,7 +50,7 @@
                     {% for answer in question.shuffled_answers %}
                         <li class='option'>
                             <input class='option-input' id='answer-{{ answer.id }}' name='answer-{{ question.id }}'
-                                   type='radio' value='{{ answer.id }}'>
+                                   type='radio' value='{{ answer.id }}' required>
                             <label class='option-label' for='answer-{{ answer.id }}'>{{ answer.text }}</label>
                         </li>
                     {% endfor %}
